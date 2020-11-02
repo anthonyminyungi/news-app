@@ -28,15 +28,15 @@ export default function Card({ news }: CardProp): JSX.Element {
     window.open(news.web_url);
   };
   return (
-    <CardWrapper onClick={cardClickHandler}>
-      <Background className="thumbnail">
+    <CardWrapper>
+      <Background className="thumbnail" onClick={cardClickHandler}>
         {news.multimedia.length === 0 ? (
           <></>
         ) : (
           <img src={getImg(news.multimedia)} alt="news-multimedia" />
         )}
       </Background>
-      <TextWrapper>
+      <TextWrapper onClick={cardClickHandler}>
         <Title>{news.headline.main}</Title>
         <Description>
           {news.abstract.length >= 100
@@ -46,7 +46,7 @@ export default function Card({ news }: CardProp): JSX.Element {
       </TextWrapper>
       <LabelWrapper>
         <LabelContent>
-          <Label />
+          <Label>hello</Label>
         </LabelContent>
       </LabelWrapper>
     </CardWrapper>

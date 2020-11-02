@@ -11,7 +11,6 @@ export const CardWrapper = styled.div`
   align-items: center;
   margin: 1rem 0.5rem 0.5rem;
   transition: all 0.5s;
-  cursor: pointer;
 
   @media only screen and (max-width: 767.98px) {
   }
@@ -29,6 +28,7 @@ export const Background = styled.div`
   align-items:center;
   border-radius 4px 4px 0 0 ;
   max-height: 176px;
+  cursor: pointer;
 `;
 
 export const LabelWrapper = styled.div`
@@ -45,7 +45,7 @@ export const LabelContent = styled.div`
   padding: 0;
   flex-wrap: wrap;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 `;
 
 export const Label = styled.div`
@@ -71,7 +71,6 @@ export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
 `;
 
 export const Logo = styled.div<{ logo: string }>`
@@ -90,6 +89,7 @@ export const TextWrapper = styled.div`
   padding: 1rem;
   overflow: hidden;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Title = styled.div`
