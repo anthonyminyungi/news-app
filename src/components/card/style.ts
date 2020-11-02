@@ -45,7 +45,6 @@ export const LabelContent = styled.div`
   padding: 0;
   flex-wrap: wrap;
   position: relative;
-  z-index: 1;
 `;
 
 export const Label = styled.div`

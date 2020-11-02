@@ -5,6 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/header';
 import List from './components/list';
+import Nav from './components/nav';
 import { Global } from './styles';
 
 function App(): JSX.Element {
@@ -12,7 +13,10 @@ function App(): JSX.Element {
     <>
       <Global />
       <Header />
-      <List />
+      <BrowserRouter>
+        <Nav />
+        <List />
+      </BrowserRouter>
     </>
   );
 }

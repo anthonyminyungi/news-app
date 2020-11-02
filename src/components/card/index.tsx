@@ -46,7 +46,7 @@ export default function Card({ news }: CardProp): JSX.Element {
       </TextWrapper>
       <LabelWrapper>
         <LabelContent>
-          <Label>hello</Label>
+          <Label>icon</Label>
         </LabelContent>
       </LabelWrapper>
     </CardWrapper>
