@@ -1,9 +1,20 @@
 import axios from 'axios';
 
+type Headline = {
+  main: string;
+};
+
+export interface Multimedia {
+  subType: string;
+  url: string;
+}
+
 export interface NewsData {
-  id: number;
-  title: string;
-  logo_file_url: string;
+  web_url: string;
+  headline: Headline;
+  abstract: string;
+  multimedia: Multimedia[];
+  lead_paragraph: string;
 }
 
 const API_KEY = 'wTwRh7Blb0nUPWPWvHQCWVupJSoQBqeu';
