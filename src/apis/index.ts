@@ -17,7 +17,7 @@ export interface NewsData {
   lead_paragraph: string;
 }
 
-const API_KEY = 'wTwRh7Blb0nUPWPWvHQCWVupJSoQBqeu';
+const API_KEY = 'M9hnOF0e6SM1BMMKqCobX4muvOHXYGu0';
 
 export const fetchNewsData = async (keyword = ''): Promise<NewsData> => {
   const response = await axios.get(

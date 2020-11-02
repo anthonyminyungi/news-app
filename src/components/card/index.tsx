@@ -39,9 +39,9 @@ export default function Card({ news }: CardProp): JSX.Element {
       <TextWrapper onClick={cardClickHandler}>
         <Title>{news.headline.main}</Title>
         <Description>
-          {news.abstract.length >= 100
+          {news.lead_paragraph.length >= 100
             ? `${news.lead_paragraph.substr(0, 100)} ...more`
-            : news.abstract}
+            : news.lead_paragraph}
         </Description>
       </TextWrapper>
       <LabelWrapper>

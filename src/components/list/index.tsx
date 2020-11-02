@@ -5,7 +5,7 @@ import Card from '../card';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from './style';
 
-const API_KEY = 'wTwRh7Blb0nUPWPWvHQCWVupJSoQBqeu';
+const API_KEY = 'M9hnOF0e6SM1BMMKqCobX4muvOHXYGu0';
 
 export default function List(): JSX.Element {
   const [loading, setLoading] = useState(false);

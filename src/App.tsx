@@ -3,9 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
-import Header from './components/header';
-import List from './components/list';
-import Nav from './components/nav';
+import { Header, List, Nav, SavedList } from './components';
 import { Global } from './styles';
 
 function App(): JSX.Element {
@@ -15,7 +13,8 @@ function App(): JSX.Element {
       <Header />
       <BrowserRouter>
         <Nav />
-        <List />
+        <Route path="/" exact component={List} />
+        <Route path="/saved" exact component={SavedList} />
       </BrowserRouter>
     </>
   );
