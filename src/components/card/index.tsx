@@ -35,13 +35,12 @@ export default function Card({ news }: CardProp): JSX.Element {
 
   return (
     <CardWrapper>
-      <Background className="thumbnail" onClick={cardClickHandler}>
-        {news.multimedia.length === 0 ? (
-          <></>
-        ) : (
-          <img src={getImg(news.multimedia)} alt="news-multimedia" />
-        )}
-      </Background>
+      <Background
+        className="thumbnail"
+        images={news.multimedia}
+        onClick={cardClickHandler}
+      />
+
       <TextWrapper onClick={cardClickHandler}>
         <Title>{news.headline.main}</Title>
         <Description>{news.lead_paragraph}</Description>
@@ -54,7 +53,3 @@ export default function Card({ news }: CardProp): JSX.Element {
     </CardWrapper>
   );
 }
-
-// news.lead_paragraph.length >= 100
-//             ? `${news.lead_paragraph.substr(0, 100)} ...more`
-//             : news.lead_paragraph
