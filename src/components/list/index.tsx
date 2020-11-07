@@ -1,48 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 
 import Card from '../card';
+import useNewsFetch from '../../hooks/useNewsFetch';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from './style';
 
-const API_KEY = 'M9hnOF0e6SM1BMMKqCobX4muvOHXYGu0';
-
 export default function List(): JSX.Element {
-  const [loading, setLoading] = useState(false);
-  const [newsList, setNewsList] = useState([]);
-
-  const fetch = async () => {
-    setLoading(true);
-
-    await axios
-      .get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?&api-key=${API_KEY}&page=0`,
-      )
-      .then((response) => {
-        const fetchedData = response.data.response.docs;
-        console.log(fetchedData);
-        const mergedData = newsList.concat(...fetchedData);
-        setNewsList(mergedData);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      });
-
-    setLoading(false);
-  };
-
+  const { newsState, fetchNewsDispatch } = useNewsFetch();
   useEffect(() => {
-    fetch();
-    console.log(newsList);
+    fetchNewsDispatch('');
+    console.log(newsState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(newsState);
 
   return (
     <Layout>
       <ContentWrapper>
         <ContentList>
-          {newsList.map((news: NewsData) => {
+          {newsState.map((news: NewsData) => {
             // eslint-disable-next-line no-underscore-dangle
             return <Card key={news.web_url} news={news} />;
           })}

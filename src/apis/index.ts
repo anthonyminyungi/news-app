@@ -28,10 +28,13 @@ const API_KEY = 'M9hnOF0e6SM1BMMKqCobX4muvOHXYGu0';
 
 export const fetchNewsData = async (keyword = ''): Promise<NewsData> => {
   const response = await axios.get(
-    `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${keyword}&api-key=${API_KEY}`,
+    `https://api.nytimes.com/svc/search/v2/articlesearch.json?${
+      keyword !== '' ? `q=${keyword}` : ``
+    }&api-key=${API_KEY}`,
   );
+  console.log(response.data.response.docs);
   if (response.statusText !== 'OK') {
     throw new Error(response.statusText);
   }
-  return response.data as Promise<NewsData>;
+  return response.data.response.docs as Promise<NewsData>;
 };
