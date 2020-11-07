@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
+import 'font-awesome/css/font-awesome.min.css';
 
 import {
   CardWrapper,
   Background,
-  Logo,
   TextWrapper,
   Title,
   Description,
-  Label,
-  LabelContent,
-  LabelWrapper,
+  MetaInfo,
+  StarIcon,
 } from './style';
 import { NewsData, Multimedia } from '../../apis';
+import * as utils from '../../utils';
 
 type CardProp = {
   news: NewsData;
@@ -27,6 +27,12 @@ export default function Card({ news }: CardProp): JSX.Element {
   const cardClickHandler = () => {
     window.open(news.web_url);
   };
+
+  const startClickHandler = (e: SyntheticEvent<Element>) => {
+    e.stopPropagation();
+    console.log('star!!');
+  };
+
   return (
     <CardWrapper>
       <Background className="thumbnail" onClick={cardClickHandler}>
@@ -38,17 +44,17 @@ export default function Card({ news }: CardProp): JSX.Element {
       </Background>
       <TextWrapper onClick={cardClickHandler}>
         <Title>{news.headline.main}</Title>
-        <Description>
-          {news.lead_paragraph.length >= 100
-            ? `${news.lead_paragraph.substr(0, 100)} ...more`
-            : news.lead_paragraph}
-        </Description>
+        <Description>{news.lead_paragraph}</Description>
+        <MetaInfo onClick={(e) => e.stopPropagation()}>
+          {`${utils.default.formatDate(news.pub_date)} | 
+          ${news.byline.original}`}
+          <StarIcon className="fa fa-star" onClick={startClickHandler} />
+        </MetaInfo>
       </TextWrapper>
-      <LabelWrapper>
-        <LabelContent>
-          <Label>icon</Label>
-        </LabelContent>
-      </LabelWrapper>
     </CardWrapper>
   );
 }
+
+// news.lead_paragraph.length >= 100
+//             ? `${news.lead_paragraph.substr(0, 100)} ...more`
+//             : news.lead_paragraph

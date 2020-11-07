@@ -4,6 +4,11 @@ type Headline = {
   main: string;
 };
 
+type Byline = {
+  origination: null;
+  original: string;
+};
+
 export interface Multimedia {
   subType: string;
   url: string;
@@ -15,6 +20,8 @@ export interface NewsData {
   abstract: string;
   multimedia: Multimedia[];
   lead_paragraph: string;
+  pub_date: string;
+  byline: Byline;
 }
 
 const API_KEY = 'M9hnOF0e6SM1BMMKqCobX4muvOHXYGu0';
