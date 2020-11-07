@@ -5,4 +5,9 @@ import { NewsData } from '../../apis';
 
 export type NewsAction = ActionType<typeof actions>;
 
-export type NewsState = { news: NewsData[]; message: string; page: number };
+export type NewsState = {
+  news: NewsData[];
+  message: string;
+  page: number;
+  keyword: string;
+};

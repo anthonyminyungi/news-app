@@ -15,7 +15,11 @@ interface WorkerActionType {
 
 function* fetchWorker(action: WorkerActionType) {
   try {
-    const fetched = yield call(fetchNewsData, action.payload.keyword);
+    const fetched = yield call(
+      fetchNewsData,
+      action.payload.keyword,
+      action.payload.page,
+    );
     yield put({
       type: FETCH_NEWS_SUCCESS,
       payload: { news: fetched },

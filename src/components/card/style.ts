@@ -44,8 +44,8 @@ export const Background = styled.div<{ images: Multimedia[] }>`
     props.images.length === 0
       ? `background-color: #eee;`
       : `background-image: url('https://static01.nyt.com/${
-          props.images.filter((m) => m.subType === 'videoFifteenBySeven1305')[0]
-            .url
+          props.images.filter((m) => m.subType === 'horizontalMediumAt2X')[0]
+            ?.url
         }?quality=75&auto=webp&disable=upscale');`}
 
   @media only screen and (max-width: 767.97px) {

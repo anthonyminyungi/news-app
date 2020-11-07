@@ -17,12 +17,6 @@ type CardProp = {
   news: NewsData;
 };
 
-const getImg = (media: Multimedia[]) => {
-  const imgUrl = media.filter((m) => m.subType === 'mediumThreeByTwo225')[0]
-    .url;
-  return `https://static01.nyt.com/${imgUrl}?quality=75&auto=webp&disable=upscale`;
-};
-
 export default function Card({ news }: CardProp): JSX.Element {
   const cardClickHandler = () => {
     window.open(news.web_url);
