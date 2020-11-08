@@ -1,6 +1,8 @@
-import React, { SyntheticEvent } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { SyntheticEvent, useCallback } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 
+import { useSelector } from 'react-redux';
 import {
   CardWrapper,
   Background,
@@ -10,22 +12,33 @@ import {
   MetaInfo,
   StarIcon,
 } from './style';
-import { NewsData, Multimedia } from '../../apis';
+import { NewsData } from '../../apis';
 import * as utils from '../../utils';
+import { useSavedDispatch } from '../../hooks';
+import { RootState } from '../../store';
 
 type CardProp = {
   news: NewsData;
 };
 
 export default function Card({ news }: CardProp): JSX.Element {
+  const { onToggle, onRemove } = useSavedDispatch(news._id, news);
+  const { saved } = useSelector((state: RootState) => state.saved);
   const cardClickHandler = () => {
     window.open(news.web_url);
   };
 
-  const startClickHandler = (e: SyntheticEvent<Element>) => {
-    e.stopPropagation();
-    console.log('star!!');
-  };
+  const startClickHandler = useCallback(
+    (e: SyntheticEvent<Element>) => {
+      e.stopPropagation();
+      if (saved.filter((item: NewsData) => item._id === news._id).length > 0) {
+        onRemove();
+      } else {
+        onToggle();
+      }
+    },
+    [news._id, onRemove, onToggle, saved],
+  );
 
   return (
     <CardWrapper>
@@ -45,7 +58,13 @@ export default function Card({ news }: CardProp): JSX.Element {
         <MetaInfo onClick={(e) => e.stopPropagation()}>
           {`${utils.default.formatDate(news.pub_date)} | 
           ${news.byline.original}`}
-          <StarIcon className="fa fa-star" onClick={startClickHandler} />
+          <StarIcon
+            className="fa fa-star"
+            onClick={startClickHandler}
+            saved={
+              saved.filter((item: NewsData) => item._id === news._id).length > 0
+            }
+          />
         </MetaInfo>
       </TextWrapper>
     </CardWrapper>

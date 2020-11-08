@@ -41,7 +41,8 @@ export const Background = styled.div<{ images: Multimedia[] }>`
   width: 225px;
   height: 190px;
   ${(props) =>
-    props.images.length === 0
+    props.images.length === 0 ||
+    !props.images.filter((m) => m.subType === 'horizontalMediumAt2X')[0]
       ? `background-color: #eee;`
       : `background-image: url('https://static01.nyt.com/${
           props.images.filter((m) => m.subType === 'horizontalMediumAt2X')[0]
@@ -139,12 +140,12 @@ export const MetaInfo = styled.div`
   }
 `;
 
-export const StarIcon = styled.i`
+export const StarIcon = styled.i<{ saved: boolean }>`
   display: flex;
   align-items: center;
   height: 100%;
   font-size: 1.25rem;
-  color: #ccc;
+  color: ${(props) => (props.saved ? `rgb(245,245,66)` : `#ccc`)};
   cursor: pointer;
 
   @media only screen and (max-width: 374.97px) {

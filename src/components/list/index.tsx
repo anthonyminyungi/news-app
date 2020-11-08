@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
-import { useStore } from 'react-redux';
 
+import { useSelector } from 'react-redux';
 import Card from '../card';
 import { useNewsFetch, useNextPage } from '../../hooks';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from './style';
+import { RootState } from '../../store';
 
 function List(): JSX.Element {
   const { newsState, fetchNewsDispatch } = useNewsFetch();
   const { page, nextPage } = useNextPage();
-  const store = useStore();
-  const state = store.getState();
+  const news = useSelector((state: RootState) => state.news);
 
   useEffect(() => {
-    if (state.news.news.length === 0) {
-      fetchNewsDispatch(state.news.keyword, state.news.page);
+    if (news.news.length === 0) {
+      fetchNewsDispatch(news.keyword, news.page);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -22,9 +22,9 @@ function List(): JSX.Element {
   const handleScroll = () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
 
-    if (!state.news.loading && scrollTop + clientHeight >= scrollHeight) {
+    if (!news.loading && scrollTop + clientHeight >= scrollHeight) {
       nextPage();
-      fetchNewsDispatch(state.news.keyword, page + 1);
+      fetchNewsDispatch(news.keyword, page + 1);
     }
   };
 
@@ -39,9 +39,9 @@ function List(): JSX.Element {
     <Layout>
       <ContentWrapper>
         <ContentList>
-          {newsState.map((news: NewsData) => {
+          {newsState.map((article: NewsData) => {
             // eslint-disable-next-line no-underscore-dangle
-            return <Card key={news._id} news={news} />;
+            return <Card key={article._id} news={article} />;
           })}
         </ContentList>
       </ContentWrapper>

@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
+import { useSelector } from 'react-redux';
 import Card from '../card';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from '../list/style';
+import { RootState } from '../../store';
 
 export default function SavedList(): JSX.Element {
-  const [savedList, setSavedList] = useState([]);
+  const { saved } = useSelector((state: RootState) => state.saved);
 
   return (
     <Layout>
       <ContentWrapper>
         <ContentList>
-          {savedList.length === 0 ? (
+          {saved.length === 0 ? (
             <div>There is no saved news</div>
           ) : (
-            savedList.map((news: NewsData) => {
+            saved.map((news: NewsData) => {
               return <Card key={news.web_url} news={news} />;
             })
           )}

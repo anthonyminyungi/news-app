@@ -1,30 +1,30 @@
 import React, { useCallback } from 'react';
 import { debounce } from 'lodash';
 import 'font-awesome/css/font-awesome.min.css';
-import { useStore } from 'react-redux';
 
+import { useSelector } from 'react-redux';
 import { Box, InputWrapper, SearchInput, SearchIcon } from './style';
 import { useNewsFetch, useSetKeyword } from '../../hooks';
+import { RootState } from '../../store';
 
 export default function Header(): JSX.Element {
   const { fetchNewsDispatch } = useNewsFetch();
   const { setKeywordDispatch } = useSetKeyword();
-  const store = useStore();
-  const state = store.getState();
+  const news = useSelector((state: RootState) => state.news);
 
   const debouncedSearch = debounce((word) => {
     setKeywordDispatch(word);
-    fetchNewsDispatch(word, state.news.page);
+    fetchNewsDispatch(word, 0);
   }, 1000);
 
   const handleKeywordChange = useCallback(
     (e) => {
       const { value } = e.target;
-      if (state.news.keyword.trim() !== value.trim()) {
+      if (news.keyword.trim() !== value.trim()) {
         debouncedSearch(value);
       }
     },
-    [debouncedSearch, state.news.keyword],
+    [debouncedSearch, news.keyword],
   );
 
   return (
