@@ -13,16 +13,18 @@ export default function Header(): JSX.Element {
   const state = store.getState();
 
   const debouncedSearch = debounce((word) => {
+    setKeywordDispatch(word);
     fetchNewsDispatch(word, state.news.page);
   }, 1000);
 
   const handleKeywordChange = useCallback(
     (e) => {
       const { value } = e.target;
-      setKeywordDispatch(value);
-      debouncedSearch(value);
+      if (state.news.keyword.trim() !== value.trim()) {
+        debouncedSearch(value);
+      }
     },
-    [debouncedSearch, setKeywordDispatch],
+    [debouncedSearch, state.news.keyword],
   );
 
   return (

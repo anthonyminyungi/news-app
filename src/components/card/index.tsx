@@ -37,7 +37,11 @@ export default function Card({ news }: CardProp): JSX.Element {
 
       <TextWrapper onClick={cardClickHandler}>
         <Title>{news.headline.main}</Title>
-        <Description>{news.lead_paragraph}</Description>
+        <Description>
+          {news.lead_paragraph.length > 350
+            ? `${news.lead_paragraph.slice(0, 350)} ...more`
+            : news.lead_paragraph}
+        </Description>
         <MetaInfo onClick={(e) => e.stopPropagation()}>
           {`${utils.default.formatDate(news.pub_date)} | 
           ${news.byline.original}`}

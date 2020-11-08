@@ -15,6 +15,7 @@ export interface Multimedia {
 }
 
 export interface NewsData {
+  _id: string;
   web_url: string;
   headline: Headline;
   abstract: string;
@@ -35,7 +36,7 @@ export const fetchNewsData = async (
       keyword !== '' ? `q=${keyword}` : ``
     }&page=${page}&api-key=${API_KEY}`,
   );
-  console.log(response.data.response.docs);
+  console.log(keyword, page);
   if (response.statusText !== 'OK') {
     throw new Error(response.statusText);
   }

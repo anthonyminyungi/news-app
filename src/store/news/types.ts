@@ -10,4 +10,5 @@ export type NewsState = {
   message: string;
   page: number;
   keyword: string;
+  loading: boolean;
 };
