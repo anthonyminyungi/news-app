@@ -11,4 +11,5 @@ export type NewsState = {
   page: number;
   keyword: string;
   loading: boolean;
+  scrollLocation: number;
 };

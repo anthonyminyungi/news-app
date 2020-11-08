@@ -33,6 +33,7 @@ export const CardWrapper = styled.div`
   }
 `;
 
+// TODO: Apply image lazy loading
 export const Background = styled.div<{ images: Multimedia[] }>`
   display: flex;
   background-position: center center;
@@ -145,7 +146,7 @@ export const StarIcon = styled.i<{ saved: boolean }>`
   align-items: center;
   height: 100%;
   font-size: 1.25rem;
-  color: ${(props) => (props.saved ? `rgb(245,245,66)` : `#ccc`)};
+  color: ${(props) => (props.saved ? `rgb(245,245,90)` : `#ccc`)};
   cursor: pointer;
 
   @media only screen and (max-width: 374.97px) {

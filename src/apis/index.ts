@@ -36,7 +36,7 @@ export const fetchNewsData = async (
       keyword !== '' ? `q=${keyword}` : ``
     }&page=${page}&api-key=${API_KEY}`,
   );
-  console.log(keyword, page);
+
   if (response.statusText !== 'OK') {
     throw new Error(response.statusText);
   }

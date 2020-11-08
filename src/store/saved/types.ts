@@ -7,4 +7,5 @@ export type SavedAction = ActionType<typeof actions>;
 
 export type SavedState = {
   saved: NewsData[];
+  scrollLocation: number;
 };

@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useScrollLocation } from '../../hooks';
 import { AppBar, Wrapper, Box } from './style';
 
 export default function Nav(): JSX.Element {
+  const { savedScroll } = useScrollLocation(document.documentElement.scrollTop);
+
+  const handleScroll = () => {
+    savedScroll();
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
   return (
     <AppBar>
       <Wrapper>

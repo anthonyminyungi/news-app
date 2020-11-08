@@ -1,6 +1,11 @@
 import { createReducer } from 'typesafe-actions';
 
-import { fetchNewsAction, increasePage, setKeyword } from './actions';
+import {
+  fetchNewsAction,
+  increasePage,
+  setKeyword,
+  setScrollLocation,
+} from './actions';
 import { NewsAction, NewsState } from './types';
 
 const initialState: NewsState = {
@@ -9,6 +14,7 @@ const initialState: NewsState = {
   page: 0,
   keyword: '',
   loading: false,
+  scrollLocation: 0,
 };
 
 const newsReducer = createReducer<NewsState, NewsAction>(initialState)
@@ -30,6 +36,9 @@ const newsReducer = createReducer<NewsState, NewsAction>(initialState)
   })
   .handleAction(setKeyword, (state, action) => {
     return { ...state, keyword: action.payload, news: [], page: 0 };
+  })
+  .handleAction(setScrollLocation, (state, action) => {
+    return { ...state, scrollLocation: action.payload };
   });
 
 export default newsReducer;

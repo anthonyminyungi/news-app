@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 import Card from '../card';
-import { useNewsFetch, useNextPage } from '../../hooks';
+import { useNewsFetch, useNextPage, useScrollLocation } from '../../hooks';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from './style';
 import { RootState } from '../../store';
@@ -11,18 +11,21 @@ function List(): JSX.Element {
   const { newsState, fetchNewsDispatch } = useNewsFetch();
   const { page, nextPage } = useNextPage();
   const news = useSelector((state: RootState) => state.news);
+  const { newsScroll } = useScrollLocation(document.documentElement.scrollTop);
 
   useEffect(() => {
+    window.scrollTo(0, news.scrollLocation);
     if (news.news.length === 0) {
       fetchNewsDispatch(news.keyword, news.page);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // TODO: migration into using IntersectionObserver with hook
   const handleScroll = () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-
-    if (!news.loading && scrollTop + clientHeight >= scrollHeight) {
+    newsScroll();
+    if (!news.loading && scrollTop + clientHeight === scrollHeight) {
       nextPage();
       fetchNewsDispatch(news.keyword, page + 1);
     }
