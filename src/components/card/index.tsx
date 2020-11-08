@@ -24,6 +24,7 @@ type CardProp = {
 export default function Card({ news }: CardProp): JSX.Element {
   const { onToggle, onRemove } = useSavedDispatch(news._id, news);
   const { saved } = useSelector((state: RootState) => state.saved);
+
   const cardClickHandler = () => {
     window.open(news.web_url);
   };

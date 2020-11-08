@@ -1,20 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Card from '../card';
 import { useNewsFetch, useNextPage, useScrollLocation } from '../../hooks';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from './style';
 import { RootState } from '../../store';
+import { setCurrentMenu } from '../../store/currentMenu';
 
 function List(): JSX.Element {
   const { newsState, fetchNewsDispatch } = useNewsFetch();
   const { page, nextPage } = useNextPage();
   const news = useSelector((state: RootState) => state.news);
-  const { newsScroll } = useScrollLocation(document.documentElement.scrollTop);
+  const { newsScroll } = useScrollLocation();
+  const dispatch = useDispatch();
+
+  const setMenu = useCallback(() => dispatch(setCurrentMenu('NEWS')), [
+    dispatch,
+  ]);
 
   useEffect(() => {
     window.scrollTo(0, news.scrollLocation);
+    setMenu();
     if (news.news.length === 0) {
       fetchNewsDispatch(news.keyword, news.page);
     }
@@ -24,7 +31,7 @@ function List(): JSX.Element {
   // TODO: migration into using IntersectionObserver with hook
   const handleScroll = () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-    newsScroll();
+    newsScroll(scrollTop);
     if (!news.loading && scrollTop + clientHeight === scrollHeight) {
       nextPage();
       fetchNewsDispatch(news.keyword, page + 1);

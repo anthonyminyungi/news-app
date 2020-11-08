@@ -4,10 +4,12 @@ import createSagaMiddleware from 'redux-saga';
 import newsSaga from './news/saga';
 import news from './news';
 import saved from './saved';
+import menu from './currentMenu';
 
 const rootReducer = combineReducers({
   news,
   saved,
+  menu,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

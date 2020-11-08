@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Card from '../card';
+import { useScrollLocation } from '../../hooks';
 import { NewsData } from '../../apis';
 import { Layout, ContentList, ContentWrapper } from '../list/style';
 import { RootState } from '../../store';
+import { setCurrentMenu } from '../../store/currentMenu';
 
 export default function SavedList(): JSX.Element {
   const { saved } = useSelector((state: RootState) => state.saved);
+  const dispatch = useDispatch();
+  const { savedScroll } = useScrollLocation();
 
+  const handleScroll = () => {
+    const { scrollTop } = document.documentElement;
+
+    savedScroll(scrollTop);
+  };
+
+  const setMenu = useCallback(() => dispatch(setCurrentMenu('SAVED')), [
+    dispatch,
+  ]);
+
+  useEffect(() => {
+    setMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
   return (
     <Layout>
       <ContentWrapper>

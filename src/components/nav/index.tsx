@@ -1,33 +1,48 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { useScrollLocation } from '../../hooks';
+import { RootState } from '../../store';
 import { AppBar, Wrapper, Box } from './style';
 
 export default function Nav(): JSX.Element {
-  const { savedScroll } = useScrollLocation(document.documentElement.scrollTop);
+  const { menu } = useSelector((state: RootState) => state.menu);
 
-  const handleScroll = () => {
-    savedScroll();
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  });
   return (
     <AppBar>
       <Wrapper>
         <Box>
           <Link style={{ color: 'black', textDecoration: 'none' }} to="/">
-            News
+            <span
+              style={
+                menu === 'NEWS'
+                  ? {
+                      color: 'black',
+                      textDecoration: 'underline',
+                      fontWeight: 'bold',
+                    }
+                  : { color: '#bbb' }
+              }
+            >
+              News
+            </span>
           </Link>
         </Box>
         <Box>
           <Link style={{ color: 'black', textDecoration: 'none' }} to="/saved">
-            Saved
+            <span
+              style={
+                menu === 'SAVED'
+                  ? {
+                      color: 'black',
+                      textDecoration: 'underline',
+                      fontWeight: 'bold',
+                    }
+                  : { color: '#bbb' }
+              }
+            >
+              Saved
+            </span>
           </Link>
         </Box>
       </Wrapper>

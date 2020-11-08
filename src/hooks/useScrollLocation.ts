@@ -5,16 +5,16 @@ import { setScrollLocation as setNewsScrollLocation } from '../store/news';
 import { setScrollLocation } from '../store/saved';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function useScrollLocation(location: number) {
+function useScrollLocation() {
   const dispatch = useDispatch();
   const newsScroll = useCallback(
-    () => dispatch(setNewsScrollLocation(location)),
-    [dispatch, location],
+    (location) => dispatch(setNewsScrollLocation(location)),
+    [dispatch],
   );
-  const savedScroll = useCallback(() => dispatch(setScrollLocation(location)), [
-    dispatch,
-    location,
-  ]);
+  const savedScroll = useCallback(
+    (location) => dispatch(setScrollLocation(location)),
+    [dispatch],
+  );
 
   return {
     newsScroll,
