@@ -9,7 +9,7 @@ function App(): JSX.Element {
     <>
       <Global />
       <Header />
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Nav />
         <Route path="/" exact component={List} />
         <Route path="/saved" exact component={SavedList} />
