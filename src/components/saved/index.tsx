@@ -10,6 +10,9 @@ import { setCurrentMenu } from '../../store/currentMenu';
 
 export default function SavedList(): JSX.Element {
   const { saved } = useSelector((state: RootState) => state.saved);
+  const scrollLocation = useSelector(
+    (state: RootState) => state.saved.scrollLocation,
+  );
   const dispatch = useDispatch();
   const { savedScroll } = useScrollLocation();
 
@@ -24,6 +27,7 @@ export default function SavedList(): JSX.Element {
   ]);
 
   useEffect(() => {
+    window.scrollTo(0, scrollLocation);
     setMenu();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
